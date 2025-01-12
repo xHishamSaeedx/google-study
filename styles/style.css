@@ -1,0 +1,399 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-blue: #4285f4;
+  --primary-red: #ea4335;
+  --primary-yellow: #fbbc05;
+  --primary-green: #34a853;
+  --cyber-glow: 0 0 10px rgba(66, 133, 244, 0.8);
+}
+
+body {
+  font-family: "Google Sans", Arial, sans-serif;
+  background: #0a0a0a;
+  overflow: hidden;
+  color: #fff;
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAPVSURBVGiB7ZpNiFVVHMZ/z7kzjjp+ZJqmlZqSkhWYhWSzqE0WQQQR1SIIXLRwE0RFtYhAaB0tWkWLPoQwFyK0CTdBtCgxKoLCQvqwGizNxs98jczM7Z7TYu7VuXPvnLlz77kzF+Z/4cB9z3n/z3Pe87z3nPeMMcYYY4wxRgdJ0mqbqEa1Q/WQ6hnVi6p7VVuSxh9VqHaojquOqO5WfU11t2p70vhjEtXNqr+koPqg6gbVpqTxRxWqbaqvqh5WvTRFVc6q7lLtTBp/TKLaqnrPFBU5p/qB6rrE8ccyqo2qz6v+nqIiJ1S3JY0/6lF9VPWU6jXV71SfVa1LGn/UovqA6s+ZKnFJ9R3VpqTxRyWqj6ieybz8sOobqvVJ449KVDeoXsxUZVR1p2pD0vijDtWG9N85l6kio6pvqS5MGn9UkgbfkqnKFdUPVZcljT+qUF2qeihTleuq76k2J40/qlBtVv08UxVVP1FdkTT+qEK1TfXXTFUmVD9TXZ00/qhCtV31eKYqN1U/VV2WNP6oQrVL9a9MVa6q7lBtSxp/VKG6XPXPTFUuq76g2pI0/qhCdYXqqUxVzqs+nTT2qEO1W/VEpipnVB9LGntUorpR9XimKqdUH0wae1Si+pDq6UxV/lZ9NGnsUYnqY6rnMlU5rrohaexRieqm9CGmKkdV70sae1Si+rjqxUxVflNdmzT2qER1s+qlTFV+Vr0zaexRieoTqpczVfledVnS2KMS1adUr2aq8q1qV9LYoxLVZ1SvZ6ryteqSpLFHJarPqt7IVOVL1YVJYw8TVNvTh9uAzgKGbwEjwB/AQeA14POiKG7NJWgIzCkiqvXAG8DTQAfQXMPwm8Bx4CPgw6IorjUacxjMGhHVRcDLwItAV53zXQW+AN4siuJEQ9GFzIwRUe0GXgZeAhY0YM5h4D3g/aIoLjVgvpBpI6LaAWwFXgXubPDco8BO4N2iKE41eO5ZmRIR1TuA54CXgXvmMYerwOfA20VR/DCP88xACxPfyNPAVmDJAOY0DuwD3gH2FkUxNoA5/0c7sBnYDjw44LmvA3uAnUVRHBrUJE3APcBbwIpBTZrDMeBN4LOiKEbna4IW4EsGH4lajAFvAzuKojg/H4FbgMPM7Y7VKC4DbwC7iqK40shAzcBPDE8kpuMG8Cqwpx4n1SbgAMMfiekoiuJoPQ5NwH7GJxIz0Qx8xfhEYjqagP2MTyRqUQR7MhVwFtgGrCuK4pOiKCYKoiiKm8AW4ASDzS7DwD+1OhZFMQFsAX6dv/wGzxAwXKtjURQTwBPAwfnLb/DsA/6t1bEoigngSeCH+ctv8HwL/FOrY1EUE8BTwHfzl9/g2QscrtWxKIoJ4Glg3/zlN3i+BH6s1bEoigngWeDr+ctv8OwGfqrVMY3Ic8CX85ff4NkF/FSrYxqR54E985ff4NkJ/FSrY1EU/wGLPx3Vc1YeYQAAAABJRU5ErkJggg==");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(66, 133, 244, 0.2);
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 3;
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.glitch-container {
+  position: relative;
+}
+
+.logo-container {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.google-logo {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: -2px;
+  position: relative;
+}
+
+.google-logo::before,
+.google-logo::after {
+  content: attr(data-text);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  text-shadow: var(--cyber-glow);
+  animation: glitch 3s infinite;
+}
+
+.google-logo::before {
+  clip: rect(44px, 450px, 56px, 0);
+  left: 1px;
+  text-shadow: -1px 0 red;
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.google-logo::after {
+  clip: rect(44px, 450px, 56px, 0);
+  left: -1px;
+  text-shadow: 1px 0 blue;
+  animation: glitch-anim2 2s infinite linear alternate-reverse;
+}
+
+.g {
+  color: var(--primary-blue);
+}
+.o1 {
+  color: var(--primary-red);
+}
+.o2 {
+  color: var(--primary-yellow);
+}
+.g2 {
+  color: var(--primary-blue);
+}
+.l {
+  color: var(--primary-green);
+}
+.e {
+  color: var(--primary-red);
+}
+
+.buddy {
+  font-size: 2.5rem;
+  color: var(--primary-blue);
+  font-weight: 500;
+  margin-top: -0.5rem;
+  text-shadow: var(--cyber-glow);
+  font-family: "Share Tech Mono", monospace;
+}
+
+.cyber-text {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  padding: 0 2rem;
+  text-shadow: var(--cyber-glow);
+  font-family: "Share Tech Mono", monospace;
+}
+
+.status-container {
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid var(--primary-blue);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  width: 300px;
+  box-shadow: var(--cyber-glow);
+}
+
+.status-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.status-label {
+  color: var(--primary-blue);
+  font-family: "Share Tech Mono", monospace;
+}
+
+.status-value {
+  color: var(--primary-green);
+  font-family: "Share Tech Mono", monospace;
+  animation: blink 1s infinite;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(66, 133, 244, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: var(--primary-blue);
+  animation: progress 3s ease-in-out infinite;
+}
+
+.coming-soon {
+  font-family: "Share Tech Mono", monospace;
+  color: var(--primary-red);
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  background: rgba(234, 67, 53, 0.1);
+  border: 1px solid var(--primary-red);
+  box-shadow: 0 0 10px rgba(234, 67, 53, 0.4);
+  min-width: 320px;
+}
+
+.tech-text {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--primary-blue);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.status-lines {
+  text-align: left;
+  font-size: 2rem;
+  font-size: 1rem;
+}
+
+.status-line {
+  margin: 0.5rem 0;
+  color: var(--primary-green);
+  opacity: 0.8;
+}
+
+.status-line::before {
+  content: ">";
+  color: var(--primary-blue);
+  margin-right: 0.5rem;
+}
+
+.status-line.blink {
+  animation: blink 1s infinite;
+  color: var(--primary-red);
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  5% {
+    clip: rect(70px, 9999px, 71px, 0);
+  }
+  10% {
+    clip: rect(29px, 9999px, 83px, 0);
+  }
+  15% {
+    clip: rect(16px, 9999px, 91px, 0);
+  }
+  20% {
+    clip: rect(2px, 9999px, 76px, 0);
+  }
+  25% {
+    clip: rect(25px, 9999px, 55px, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(15px, 9999px, 86px, 0);
+  }
+  5% {
+    clip: rect(42px, 9999px, 58px, 0);
+  }
+  10% {
+    clip: rect(1px, 9999px, 77px, 0);
+  }
+  15% {
+    clip: rect(84px, 9999px, 33px, 0);
+  }
+  20% {
+    clip: rect(65px, 9999px, 91px, 0);
+  }
+  25% {
+    clip: rect(77px, 9999px, 46px, 0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@media (max-width: 768px) {
+  .google-logo {
+    font-size: 3rem;
+  }
+
+  .buddy {
+    font-size: 2rem;
+  }
+
+  .cyber-text {
+    font-size: 1.4rem;
+  }
+
+  .status-container {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .coming-soon {
+    min-width: 280px;
+    padding: 1rem;
+  }
+
+  .status-lines {
+    font-size: 0.9rem;
+  }
+}
+
+.coming-soon-text {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 1.5rem;
+  color: var(--primary-red);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(234, 67, 53, 0.6);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(234, 67, 53, 0.6);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(234, 67, 53, 0.8),
+      0 0 30px rgba(234, 67, 53, 0.6);
+  }
+}
+
+.entertainment-section {
+  margin-top: 2rem;
+}
+
+.secret-button {
+  display: inline-block;
+  font-family: "Share Tech Mono", monospace;
+  color: var(--primary-blue);
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--primary-blue);
+  border-radius: 4px;
+  background: rgba(66, 133, 244, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.secret-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(66, 133, 244, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.secret-button:hover {
+  box-shadow: 0 0 20px rgba(66, 133, 244, 0.4);
+  text-shadow: 0 0 10px rgba(66, 133, 244, 0.6);
+}
+
+.secret-button:hover::before {
+  left: 100%;
+}
+
+.button-text {
+  position: relative;
+  z-index: 1;
+}
